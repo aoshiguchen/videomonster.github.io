@@ -92,7 +92,7 @@
 <meta property="og:description" content="简单就是终极的复杂。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://ws4.sinaimg.cn/large/006tKfTcgy1fl44mzt99bj30cd064q2y.jpg">
-<meta property="og:updated_time" content="2017-11-05T23:49:26.000Z">
+<meta property="og:updated_time" content="2017-11-06T02:09:07.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java8初探 - Lambda表达式">
 <meta name="twitter:description" content="简单就是终极的复杂。">
@@ -374,7 +374,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,654 字
+                  1,664 字
                 </span>
               
 
@@ -432,20 +432,20 @@
 </ol>
 <p>&#8195;&#8195;简而言之，函数式编程的出现主要就是通过<strong>大量使用函数来描述业务过程，减少了代码的重复，使得程序比较短，开发速度较快</strong>。关于函数式编程更加深入的介绍，请参考<a href="http://www.ruanyifeng.com/blog/2017/02/fp-tutorial.html" target="_blank" rel="external">函数式编程入门教程 - 阮一峰</a>。</p>
 <hr>
-<h3 id="Java和函数式编程"><a href="#Java和函数式编程" class="headerlink" title="Java和函数式编程"></a>Java和函数式编程</h3><p>&#8195;&#8195;众所周知，Java语言有四大特性：<strong>面向对象，继承，多态，封装</strong>。面向对象其实就是对一类事物进行抽象，将一类事物共有的特性抽取出来，形成一个模型，也就是对象。所以对于习惯了面向对象编程的开发者来说，抽象的概念并不陌生，<strong>面向对象编程是对数据进行抽象，而函数式编程是对行为进行抽象。</strong></p>
-<p>&#8195;&#8195;1996 年 1 月， Java 1.0 发布，带有高效运行时编译 器的 Java 虚拟机（JVM）的出现， 使程序员将更多精力放在编写干净、易于维护的代码 上，而不是思考如何将每一个 CPU 时钟周期、每字节内存物尽其用。</p>
-<p>&#8195;&#8195;开发类库的程序员使用 Java 时，发现抽象级别还不够。面对大型数据集合， Java 还欠缺高效的并行操作，即开发者能够使用 Java 8 编写复杂的集合处理算法时，只需要简单修改一个方法，就能让代码在多核 CPU 上高效运行。为了达到目的，就需要在语言层面上修改现有的 Java：增加<strong>Lambda 表达式</strong>。</p>
-<p>&#8195;&#8195; <strong>不是所有人都在编写性能优先的代码</strong>，比如我(T T)，对于这些人来说，<code>函数式编程</code>带来的好处尤为明显。程序员能编写出更容易阅读的代码，以此更多地表达了业务逻辑的意图，而不是它的实现机制。当然易读的代码也易于维护、更可靠、更不容易出错。</p>
+<h3 id="Java和函数式编程"><a href="#Java和函数式编程" class="headerlink" title="Java和函数式编程"></a>Java和函数式编程</h3><p>&#8195;&#8195;1996 年 1 月， Java 1.0 发布，带有高效运行时编译 器的 Java 虚拟机（JVM）的出现，使程序员将更多精力放在编写干净、易于维护的代码上，而不是思考如何将每一个 CPU 时钟周期、每字节内存物尽其用。</p>
+<p>&#8195;&#8195;众所周知，Java语言有四大特性：<strong>面向对象，继承，多态，封装</strong>。面向对象其实就是对一类事物进行抽象，将一类事物共有的特性抽取出来，形成一个模型，也就是对象。所以对于习惯了面向对象编程的开发者来说，抽象的概念并不陌生，<strong>面向对象编程是对数据进行抽象，而函数式编程是对行为进行抽象。</strong></p>
+<p>&#8195;&#8195;但是开发类库的程序员使用 Java 时，发现抽象的高度还不够。面对大型数据集合， Java 还欠缺高效的并行操作，即开发者能够使用 Java 8 编写复杂的集合处理算法时，只需要简单修改一个方法，就能让代码在多核 CPU 上高效运行。为了达到目的，就需要在语言层面上修改现有的 Java：增加<strong>Lambda 表达式</strong>。</p>
+<p>&#8195;&#8195; <strong>不是所有人都在编写性能优先的代码</strong>，比如我(T T)，<code>函数式编程</code>带来的好处尤为明显。我能使用Lambda编写出更容易阅读的代码，以此更多地表达了业务逻辑的意图，而不是它的实现机制。当然易读的代码也易于维护、更可靠、更不容易出错。</p>
 <hr>
 <h3 id="Java中的Lambda表达式"><a href="#Java中的Lambda表达式" class="headerlink" title="Java中的Lambda表达式"></a>Java中的Lambda表达式</h3><h4 id="第一个Lambda表达式"><a href="#第一个Lambda表达式" class="headerlink" title="第一个Lambda表达式"></a>第一个Lambda表达式</h4><p>&#8195;&#8195;<strong>Talk is cheap, show me the code.</strong> 经过上面的简要的概述，终究还是要回归到代码中来，真实体会下Lambda表达式到底带来了什么样的体验和惊喜。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">button.addActionListener(<span class="keyword">new</span> ActionListener() &#123; </div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">actionPerformed</span><span class="params">(ActionEvent event)</span> </span>&#123; </div><div class="line">    System.out.println(<span class="string">"按钮点击 ！"</span>); </div><div class="line">  &#125; </div><div class="line">&#125;);</div></pre></td></tr></table></figure>
 <p>&#8195;&#8195;以上代码在Swing方面的编程中经常出现（Swing方面的编程大概并不经常出现….），只要有一些Java开发经验的朋友来看，一定会知道这个就是一个简单的<strong>匿名函数</strong>的实现，其作用就是对面板上的按钮注册一个事件监听器，用户一但输入，监听器就会执行一些操作，结果会在console上输出一行：<strong>按钮点击 ！</strong></p>
-<p>&#8195;&#8195;匿名函数设计的本意其实就是将代码段当做数据来进行传递，如上段code中的监听器，这实际上也是一个代码即数据的例子，我给按钮传递了一个<strong>代表某种行为的对象</strong>。但其实匿名内部类来描述这样的一个业务需求，并不是非常的简洁，为了调用一行重要的逻辑代码，不得不加上多行冗繁的样板代码，这里我并不想传入一个对象，我只是想做到一个监听按钮的行为。上面的代码经过Java 8中的Lambda改写后如下所示：</p>
+<p>&#8195;&#8195;匿名函数设计的本意其实就是将<strong>代码段当做数据</strong>来进行传递，如上段code中的监听器，这实际上也是一个代码即数据的例子，我给按钮传递了一个<strong>代表某种行为的对象</strong>。但其实匿名内部类来描述这样的一个业务需求，并不是非常的简洁，为了调用一行重要的逻辑代码，不得不加上多行冗繁的样板代码，这里我并不想传入一个对象，我只是想做到一个监听按钮的行为。上面的代码经过Java 8中的Lambda改写后如下所示：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">button.addActionListener(event -&gt; System.out.println(<span class="string">"按钮点击 ！"</span>));</div></pre></td></tr></table></figure>
 <p>&#8195;&#8195;意不意外？惊不惊喜？那么长的一段代码，怎么这一行就能代替了？</p>
-<p>&#8195;&#8195;和传入一个实现某接口的对象不同， 在使用Lambda实现相同的业务功能中，我传入了一段代码块，<strong>一个没有名字的函数</strong>。 event是形参名，和上面匿名内部类实现传入的是同一个参数。 <code>-&gt;</code> 将参数和 Lambda 表达式的<strong>主体</strong>分开，而主体是用户点击按钮时会运行的一些代码。</p>
-<p>&#8195;&#8195;按照正常编写代码的逻辑来看，作为一个形参，得定义一个类型来声明它到底姓甚不是么？但这里正是Lambda给我们的一个惊喜：<strong>在 Lambda 表达式中无需指定类型，程序依然可以编译。</strong>这是因为Java的编译器Javac 根据程序的上下文（ addActionListener 方法的签名）“自行”推断出了参数 event 的类型，这意味着什么？意味着如果参数类型“不言而明”，则无需显式指定。是不是感觉无比的酷炫，感觉原来不仅是IDE，即使代码本身也可以体验到智能？当然这样的使用并不止这一个案例，集合中常用的自定义比较器的实现一样可以通过这种方式实现。</p>
-<h4 id="Lambda的变体-待续…"><a href="#Lambda的变体-待续…" class="headerlink" title="Lambda的变体 (待续…)"></a>Lambda的变体 (待续…)</h4><p>&#8195;&#8195;尽管Lambda中的样本代码很少，甚至也可以不加上参数类型，但因为Java仍然是一个静态语言，并不会像JavaScript，Python等动态语言，会自动在编译期推断出变量的类型，并且为了增加可读性，迁就正常开发的习惯，在Lambda中声明参数时也可以包括类型信息，而且有时编译器不一定能根据上下文推断出参数的类型…所以Java中的Lambda还有一些变体的存在。</p>
+<p>&#8195;&#8195;和传入一个实现某接口的对象不同， 在使用Lambda表达式实现相同的业务功能中，我传入了一段代码块，<strong>一个没有名字的函数</strong>。 event是形参名，和上面匿名内部类实现传入的是同一个参数。而中间使用 <code>-&gt;</code> 将参数和 Lambda 表达式的<strong>主体</strong>分开，而<strong>主体</strong>就是用户点击按钮时会运行的一些代码。</p>
+<p>&#8195;&#8195;按照正常编写java代码的逻辑来看，作为一个形参，得定义一个类型来声明它到底姓甚不是么？但这里正是Lambda给我们的一个惊喜：<strong>在 Lambda 表达式中无需指定类型，程序依然可以编译。</strong>这是因为Java的编译器Javac 根据程序的上下文（ addActionListener 方法的签名）“自行”推断出了参数 event 的类型，这意味着什么？意味着如果参数类型“不言而明”，则无需显式指定。是不是感觉无比的酷炫，感觉原来不仅是IDE，即使代码本身也可以体验到智能？当然这样的使用并不止这一个案例，集合中常用的自定义比较器的实现一样可以通过这种方式实现。</p>
+<h4 id="Lambda的变体-待续…"><a href="#Lambda的变体-待续…" class="headerlink" title="Lambda的变体 (待续…)"></a>Lambda的变体 (待续…)</h4><p>&#8195;&#8195;尽管Lambda中的样本代码很少，甚至也可以不加上参数类型，但因为Java仍然是一个静态语言，并不会像JavaScript，Python等动态语言，会自动在编译期推断出变量的类型，并且为了增加代码的可读性，迁就正常开发的习惯，在Lambda中声明参数时也可以包括类型信息，而且有时编译器不一定能根据上下文推断出参数的类型…所以Java中的Lambda还有一些变体的存在。</p>
 <blockquote>
 <p>To be continued…  希望各位看官多多评论的说 !   ^__ ^</p>
 </blockquote>
