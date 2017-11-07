@@ -86,15 +86,15 @@
 <meta name="description" content="简单就是终极的复杂。">
 <meta name="keywords" content="blog,java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java8初探 - Lambda表达式（1）">
+<meta property="og:title" content="How2U">
 <meta property="og:url" content="http://isandiks.cn/2017/11/05/java8-2/index.html">
 <meta property="og:site_name" content="How2U">
 <meta property="og:description" content="简单就是终极的复杂。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://ws4.sinaimg.cn/large/006tKfTcgy1fl44mzt99bj30cd064q2y.jpg">
-<meta property="og:updated_time" content="2017-11-06T14:05:36.000Z">
+<meta property="og:updated_time" content="2017-11-07T05:46:24.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java8初探 - Lambda表达式（1）">
+<meta name="twitter:title" content="How2U">
 <meta name="twitter:description" content="简单就是终极的复杂。">
 <meta name="twitter:image" content="https://ws4.sinaimg.cn/large/006tKfTcgy1fl44mzt99bj30cd064q2y.jpg">
 
@@ -132,7 +132,7 @@
 
 
 
-  <title>Java8初探 - Lambda表达式（1） | How2U</title>
+  <title> | How2U</title>
   
 
 
@@ -286,7 +286,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Java8初探 - Lambda表达式（1）</h1>
+          <h1 class="post-title" itemprop="name headline"></h1>
         
 
         <div class="post-meta">
@@ -374,7 +374,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2,405 字
+                  2,408 字
                 </span>
               
 
@@ -453,10 +453,10 @@
 <h5 id="含代码块表达式"><a href="#含代码块表达式" class="headerlink" title="含代码块表达式"></a>含代码块表达式</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Runnable multiStatement = () -&gt; &#123;</div><div class="line">  System.out.print(<span class="string">"frist"</span>); </div><div class="line">  System.out.println(<span class="string">"second"</span>);</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 <p>&#8195;&#8195;Lambda表达式的主体<strong>不仅仅只是一条语句，同样可以是一段代码块</strong>，这个时候就需要使用<code>{}</code>将代码包括起来，而代码块内的内容和正常的java代码无区别，也可以用<code>return</code>或者<code>throw异常</code>来结束方法。</p>
 <p>&#8195;&#8195;同样，只有一行代码的Lambda表达式也可以使用大括号，明确表达式的开始和结束。</p>
-<h5 id="多参数表达式"><a href="#多参数表达式" class="headerlink" title="多参数表达式"></a>多参数表达式</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Long add = (a, b) -&gt; a + b;</div></pre></td></tr></table></figure>
+<h5 id="多参数表达式"><a href="#多参数表达式" class="headerlink" title="多参数表达式"></a>多参数表达式</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">BinaryOperator&lt;Long&gt; add = (a, b) -&gt; a + b;</div></pre></td></tr></table></figure>
 <p>&#8195;&#8195;这个时候的Lambda表达式，并不是将两个数字相加，而是创建了一个函数，用来进行计算两个数字相加，并返回一个Long型的值，这段代码隐含了一个return返回值的过程，如果将其还原成我们熟悉的Java方法，大概代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function">Long <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> a + b;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h5 id="显式声明参数表达式"><a href="#显式声明参数表达式" class="headerlink" title="显式声明参数表达式"></a>显式声明参数表达式</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Long add = (<span class="keyword">long</span> a, <span class="keyword">long</span> b) -&gt; a + b;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function">BinaryOperator&lt;Long&gt; <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> a + b;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="显式声明参数表达式"><a href="#显式声明参数表达式" class="headerlink" title="显式声明参数表达式"></a>显式声明参数表达式</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">BinaryOperator&lt;Long&gt; add = (<span class="keyword">long</span> a, <span class="keyword">long</span> b) -&gt; a + b;</div></pre></td></tr></table></figure>
 <p>&#8195;&#8195; 我们见到很多 Lambda 表达式中的参数类型都不是直接指定，而是交由编译器推断得出的，这当然是极好的，但有时我们最好可以显式声明参数类型，此时就需要使用小括号将参数括起来，多个参数的情况也是如此。</p>
 <h4 id="目标类型"><a href="#目标类型" class="headerlink" title="目标类型"></a>目标类型</h4><p>&#8195;&#8195; 在上面的这些变体的例子中，我们很容易发现，Lambda表达式会自己”识别”目标类型，并给出相应的行为，如返回值或者进行赋值等，那么这个目标类型是怎么理解呢？</p>
 <blockquote>
