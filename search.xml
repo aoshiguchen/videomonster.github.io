@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+    
+    <entry>
+      <title><![CDATA[Java8初探 - Lambda表达式（1）]]></title>
+      <url>/2017/11/09/java8-2/</url>
+      <content type="html"><![CDATA[<blockquote>
+<p>简单就是终极的复杂。</p>
+</blockquote>
+<p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1fl44mzt99bj30cd064q2y.jpg" alt="Lambda"></p>
+<a id="more"></a>
+<hr>
+<h2 id="什么是函数式编程？"><a href="#什么是函数式编程？" class="headerlink" title="什么是函数式编程？"></a>什么是函数式编程？</h2><p>&#8195;&#8195;在看<strong>Lambda表达式</strong>的具体内容之前，无论是哪里的资料，都会提及一个概念，那就是<code>函数式编程</code>，那么什么是函数式编程呢？</p>
+<blockquote>
+<p><strong>函数式编程</strong>是种编程方式，它将电脑运算视为函数的计算。函数编程语言最重要的基础是λ演算（lambda calculus），而且λ演算的函数可以接受函数当作输入（参数）和输出（返回值）。</p>
+</blockquote>
+<p>&#8195;&#8195;<strong>函数式编程</strong>具有的一些特性如下：</p>
+<ol>
+<li>与面向对象编程（Object-oriented programming）和过程式编程（Procedural programming）并列的编程范式；</li>
+<li>函数是“第一等公民”；</li>
+<li>只用“表达式”，不用“语句”  (最简单的区分是<code>表达式</code>指的是有返回值的方法，是一个单纯的运算过程，<code>语句</code>是执行某种操作，无返回值的方法)；</li>
+<li>强调将计算过程分解成可复用的函数；</li>
+<li>不修改状态，这里的状态指的是变量的状态的改变；</li>
+<li>引用透明;</li>
+</ol>
+<p>&#8195;&#8195;简而言之，函数式编程的出现主要就是通过<strong>大量使用函数来描述业务过程，减少了代码的重复，使得程序比较短，开发速度较快</strong>。关于函数式编程更加深入的介绍，请参考<a href="http://www.ruanyifeng.com/blog/2017/02/fp-tutorial.html" target="_blank" rel="external">函数式编程入门教程 - 阮一峰</a>。</p>
+<hr>
+<h2 id="Java和函数式编程"><a href="#Java和函数式编程" class="headerlink" title="Java和函数式编程"></a>Java和函数式编程</h2><p>&#8195;&#8195;1996 年 1 月， Java 1.0 发布，带有高效运行时编译 器的 Java 虚拟机（JVM）的出现，使程序员将更多精力放在编写干净、易于维护的代码上，而不是思考如何将每一个 CPU 时钟周期、每字节内存物尽其用。</p>
+<p>&#8195;&#8195;众所周知，Java语言有四大特性：<strong>面向对象，继承，多态，封装</strong>。面向对象其实就是对一类事物进行抽象，将一类事物共有的特性抽取出来，形成一个模型，也就是对象。所以对于习惯了面向对象编程的开发者来说，抽象的概念并不陌生，<strong>面向对象编程是对数据进行抽象，而函数式编程是对行为进行抽象。</strong></p>
+<p>&#8195;&#8195;但是开发类库的程序员使用 Java 时，发现Java是面向对象的语言， 不能像函数式语言那样嵌套定义方法，并且Java的匿名内部类只能够存在于创建它的线程中，不能运行在多线程中，无法充分利用多核的硬件优势，同时也不能抽象化控制流程和语法冗余。为了达到目的，就需要在语言层面上修改现有的 Java：增加<strong>Lambda 表达式</strong>。</p>
+<p>&#8195;&#8195; <strong>不是所有人都在编写性能优先的代码</strong>，比如我(T T)，<code>函数式编程</code>带来的好处尤为明显。我能使用Lambda编写出更容易阅读的代码，以此更多地表达了业务逻辑的意图，而不是它的实现机制。当然易读的代码也易于维护、更可靠、更不容易出错。</p>
+<hr>
+<h2 id="Java中的Lambda表达式"><a href="#Java中的Lambda表达式" class="headerlink" title="Java中的Lambda表达式"></a>Java中的Lambda表达式</h2><h3 id="Lambda语法"><a href="#Lambda语法" class="headerlink" title="Lambda语法"></a>Lambda语法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">(parameters) -&gt; &#123; statements; &#125;</div><div class="line"><span class="comment">// 或者</span></div><div class="line">(parameters) -&gt; expression</div></pre></td></tr></table></figure>
+<p>即Lambda的语法有如下三要素：</p>
+<ol>
+<li>参数列表</li>
+<li>箭头符号<code>-&gt;</code></li>
+<li>代码块</li>
+</ol>
+<p>&#8195;&#8195;那么就看看如何真正使用Lambda表达式吧！</p>
+<h3 id="第一个Lambda表达式"><a href="#第一个Lambda表达式" class="headerlink" title="第一个Lambda表达式"></a>第一个Lambda表达式</h3><p>&#8195;&#8195;<strong>Talk is cheap, show me the code.</strong> 经过上面的简要的概述，终究还是要回归到代码中来，真实体会下Lambda表达式到底带来了什么样的体验和惊喜。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">button.addActionListener(<span class="keyword">new</span> ActionListener() &#123; </div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">actionPerformed</span><span class="params">(ActionEvent event)</span> </span>&#123; </div><div class="line">    System.out.println(<span class="string">"按钮点击 ！"</span>); </div><div class="line">  &#125; </div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>&#8195;&#8195;以上代码在Swing方面的编程中经常出现（Swing方面的编程大概并不经常出现….），只要有一些Java开发经验的朋友来看，一定会知道这个就是一个简单的<strong>匿名函数</strong>的实现，其作用就是对面板上的按钮注册一个事件监听器，用户一但输入，监听器就会执行一些操作，结果会在console上输出一行：<strong>按钮点击 ！</strong></p>
+<p>&#8195;&#8195;匿名函数设计的本意其实就是将<strong>代码段当做数据</strong>来进行传递，如上段code中的监听器，这实际上也是一个代码即数据的例子，我给按钮传递了一个<strong>代表某种行为的对象</strong>。但其实匿名内部类来描述这样的一个业务需求，并不是非常的简洁，为了调用一行重要的逻辑代码，不得不加上多行冗繁的样板代码，这里我并不想传入一个对象，我只是想做到一个监听按钮的行为，这时也可以使用Lambda表达式达到目的。上面的代码经过Lambda改写后如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">button.addActionListener(</div><div class="line">  event -&gt; System.out.println(<span class="string">"按钮点击 ！"</span>)</div><div class="line">);</div></pre></td></tr></table></figure>
+<p>&#8195;&#8195;意不意外？惊不惊喜？那么长的一段代码，怎么这一行就能代替了？</p>
+<p>&#8195;&#8195;和传入一个实现某接口的对象不同， 在使用Lambda表达式实现相同的业务功能中，我传入了一段代码块，<strong>一个没有名字的函数</strong>。 event是形参名，和上面匿名内部类实现传入的是同一个参数。而中间使用 <code>-&gt;</code> 将参数和 Lambda 表达式的<strong>主体</strong>分开，<strong>主体</strong>就是用户点击按钮时会运行的一些代码。</p>
+<p>&#8195;&#8195;按照正常编写java代码的逻辑来看，作为一个形参，得定义一个类型来声明它到底姓甚不是么？但这里正是Lambda给我们的一个惊喜：<strong>在 Lambda 表达式中无需指定类型，程序依然可以编译。</strong>这是因为Java的编译器Javac 根据程序的上下文（ addActionListener 方法的签名）“自行”推断出了参数 event 的类型，这意味着什么？意味着如果参数类型“不言而明”，则无需显式指定。是不是感觉无比的酷炫，感觉原来不仅是IDE，即使代码本身也可以体验到智能？当然这样的使用并不止这一个案例，集合中常用的自定义比较器的实现一样可以通过这种方式实现。</p>
+<h3 id="Lambda的变体"><a href="#Lambda的变体" class="headerlink" title="Lambda的变体"></a>Lambda的变体</h3><p>&#8195;&#8195;尽管Lambda中的样本代码很少，甚至也可以不加上参数类型，但因为Java仍然是一个静态语言，并不会像JavaScript，Python等动态语言，会自动在编译期推断出变量的类型，并且为了增加代码的可读性，迁就正常开发的习惯，在Lambda中声明参数时也可以包括类型信息，而且有时编译器不一定能根据上下文推断出参数的类型…所以Java中的Lambda还有一些变体的存在。</p>
+<h4 id="无参数表达式"><a href="#无参数表达式" class="headerlink" title="无参数表达式"></a>无参数表达式</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Runnable noArgs = () -&gt; System.out.println(<span class="string">"Hello World"</span>);</div></pre></td></tr></table></figure>
+<p>&#8195;&#8195;该类Lambda 表达式不包含参数，<strong>采用空括号 () 表示没有参数</strong>。上面的示例代码实现了Runnable 接口，该接口本身也只有一个run方法，没有其他参数，且该方法的返回类型为 void 。</p>
+<h4 id="单参数表达式"><a href="#单参数表达式" class="headerlink" title="单参数表达式"></a>单参数表达式</h4><p>&#8195;&#8195;为了更好地说明Lambda对接口中含参方法的实现方式，先做一个热身，自定义一个满足<code>函数式接口</code>定义的接口，使用<code>@FunctionalInterface</code>注解辅助标记，接口内有一形参为String类型的抽象方法等待实现。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@FunctionalInterface</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Action</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">execute</span><span class="params">(String content)</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>函数式接口</strong>：按照Java8函数式接口的定义，<strong>接口只能有一个抽象方法，否则就不是函数式接口</strong>，就无法用Lambda表达式。</p>
+<p><strong>@FunctionalInterface</strong>：标记在<strong>“有且仅有一个抽象方法”</strong>的接口。</p>
+<p>使用这个注解的原因：不是所有的接口都为函数式接口，加上该注解能够更好地让编译器进行检查，在编译时提前发现错误。</p>
+</blockquote>
+<p>&#8195;&#8195;使用Lambda表达式进行接口的实现，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Action login = content -&gt; System.out.println(content);</div><div class="line">login.execute(<span class="string">"The new method"</span>);</div><div class="line"><span class="comment">// The new method</span></div></pre></td></tr></table></figure>
+<p>&#8195;&#8195;该类Lambda表达式包含且只包含一个参数，<strong>这种情况下可以省略参数的括号</strong>。</p>
+<h4 id="含代码块表达式"><a href="#含代码块表达式" class="headerlink" title="含代码块表达式"></a>含代码块表达式</h4><p>&#8195;&#8195;Lambda表达式的主体<strong>不仅仅只是一条语句，同样可以是一段代码块</strong>，这个时候就需要使用<code>{}</code>将代码包括起来，而代码块内的内容和正常的java代码无区别，也可以用<code>return</code>或者<code>throw异常</code>来结束方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">Action login = (content) -&gt; &#123;</div><div class="line">  System.out.println(<span class="string">"这是第一行代码"</span>);</div><div class="line">  System.out.println(content);</div><div class="line">&#125;;</div><div class="line"></div><div class="line">login.execute(<span class="string">"The new method"</span>);</div><div class="line"><span class="comment">// 这是第一行代码</span></div><div class="line"><span class="comment">// The new method</span></div></pre></td></tr></table></figure>
+<p>&#8195;&#8195;同样，只有一行代码的Lambda表达式也可以使用大括号，明确表达式的开始和结束。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Action login = content -&gt; &#123;</div><div class="line">  System.out.println(content);</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h4 id="多参数表达式"><a href="#多参数表达式" class="headerlink" title="多参数表达式"></a>多参数表达式</h4><p>&#8195;&#8195;再来一个满足<code>函数式接口</code>定义的接口吧！</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@FunctionalInterface</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Add</span> </span>&#123;</div><div class="line">    <span class="function">Integer <span class="title">add</span><span class="params">(Integer num1, Integer num2)</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>&#8195;&#8195;然后使用Lambda来实现它，多个参数的情况下， 需要使用<code>()</code>将参数括起来，如下代码所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Add addMethod = (a, b) -&gt; a + b;</div><div class="line">Integer result = addMethod.add(<span class="number">1</span>, <span class="number">2</span>);</div><div class="line">System.out.println(result);</div><div class="line"><span class="comment">// 3</span></div></pre></td></tr></table></figure>
+<p>&#8195;&#8195;这个时候的Lambda表达式，并不是将两个数字相加，而是其实创建了一个函数，用来进行计算两个数字相加，并返回一个Integer型的值，这段代码隐含了一个return返回值的过程，如果将其还原成我们熟悉的Java方法，大概代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Add add = (a, b) -&gt; &#123;</div><div class="line">	return a + b;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h4 id="显式声明参数表达式"><a href="#显式声明参数表达式" class="headerlink" title="显式声明参数表达式"></a>显式声明参数表达式</h4><p>&#8195;&#8195;这里仍然使用上面的接口案例。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Add add = (Integer a, Integer b) -&gt; a + b;</div></pre></td></tr></table></figure>
+<p>&#8195;&#8195; 我们见到很多 Lambda 表达式中的参数类型都不是直接指定，而是交由编译器推断得出的，这当然是极好的，但有时我们最好可以显式声明参数类型，此时也需要使用小括号将参数括起来。</p>
+<h3 id="目标类型"><a href="#目标类型" class="headerlink" title="目标类型"></a>目标类型</h3><p>&#8195;&#8195; 在上面的这些变体的例子中，我们很容易发现，Lambda表达式会自己”识别”目标类型，并给出相应的行为，如返回值或者进行赋值等，那么这个目标类型是怎么理解呢？</p>
+<blockquote>
+<p><strong>目标类型</strong>：指表达式所在上下文环境的类型。</p>
+</blockquote>
+<p>&#8195;&#8195; 比如将Lambda表达式赋值给一个局部变量，或传递给一个方法作为参数，局部变量或方法参数的类型就是Lambda表达式的目标类型，Lambda表达式的类型依赖于上下文环境，是由编译器推断出来的。</p>
+<p>&#8195;&#8195;当然目标类型也不是一个全新的概念。在 Java 中初始化数组时，数组的类型就是根据上下文推断出来的。另一个常见的例子是null值 ，只有将null 赋值给一个变量，才能知道它的类型。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">String[] array = &#123; <span class="string">"hello"</span>, <span class="string">"world"</span> &#125;;</div></pre></td></tr></table></figure>
+<p>&#8195;&#8195;如实例代码中，右值部分其实并没有说明该数组的元素类型，正是编译器根据上下文推断出类型信息。</p>
+<blockquote>
+<p>关于Lambda，to be continued…  希望各位看官多多评论的说 !   ^__ ^</p>
+</blockquote>
+]]></content>
+      
+        <categories>
+            
+            <category> blog </category>
+            
+            <category> java </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> blog </tag>
+            
+            <tag> java </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Java8初探 - 开篇]]></title>
+      <url>/2017/10/31/java8-1/</url>
+      <content type="html"><![CDATA[<blockquote>
+<p>Java8于2014年3月19日正式推出，至今已有3年多。</p>
+</blockquote>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79gy1fl1je9zcs2j30b406lwec.jpg" alt=""><br><a id="more"></a></p>
+<hr>
+<h3 id="写在之前的话"><a href="#写在之前的话" class="headerlink" title="写在之前的话"></a>写在之前的话</h3><p>&#8195;&#8195;作为一名JavaWeb开发者，我初次接触的Java版本为Java6，但那时的我仍是在校期间，对Java语言的迭代更新表示很路人，因为换来换去，只是接触到SE里的那些常用的API，常用的类，也已经足够达到我的课设需求。<strong>但其实我并不是一个安于稳妥的人</strong>。<br>&#8195;&#8195;在离开校园之前，每个学校都应该会有一个最终考验：<strong>毕业设计</strong>。在这个项目中，我将自己的“探险精神”发挥的淋漓尽致，尝试了许多的新技术，将这些技术组合使用，在BUG和DEBUG中得到了很多的成长，我也在此过程中感受到了追逐技术前线，应用更加先进技术解决问题的快感。对Java8的部分特性的使用便在其中。<br>&#8195;&#8195;说是初探Java8，其实也不尽然，毕竟对于某些特性也是使用过，但如果想要一览山顶完整的大好风光，还得循序渐进，脚踏实地。这次学习Java8，对于之前支离破碎的“CV大法”的代码片段进行深入理解，同时也是想通过记录博客的方式，对自己的所学进行梳理和总结。<br>&#8195;&#8195;因为种种因素, 我并未在实际的工作项目中正式应用过8, 仅以此系列博文, 作为自己的一个学习记录, 顺便祝贺Java9的到来。</p>
+<hr>
+<h3 id="本系列博文介绍"><a href="#本系列博文介绍" class="headerlink" title="本系列博文介绍"></a>本系列博文介绍</h3><p>&#8195;&#8195;初探Java8，主要就是通过自己各种渠道对Java8中部分特性进行一些学习，并且进行汇总整理。<br>&#8195;&#8195;<strong>工欲善其事必先利其器</strong>，<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="external">点击这里</a>挑选适合自己开发环境的JDK8吧。</p>
+<h4 id="java8十大新特性"><a href="#java8十大新特性" class="headerlink" title="java8十大新特性"></a>java8十大新特性</h4><ol>
+<li>Lambda表达式</li>
+<li>接口的默认方法与静态方法</li>
+<li>Stream类</li>
+<li>Optional</li>
+<li>Date/Time API</li>
+<li>方法引用</li>
+<li>重复注解</li>
+<li>扩展注解的支持</li>
+<li>JavaScript引擎Nashorn</li>
+<li>Base64</li>
+</ol>
+]]></content>
+      
+        <categories>
+            
+            <category> blog </category>
+            
+            <category> java </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> blog </tag>
+            
+            <tag> java </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[License Server for JetBrains]]></title>
+      <url>/2017/10/28/active-jetbrains/</url>
+      <content type="html"><![CDATA[<blockquote>
+<p>JetBrains官网: <a href="http://www.jetbrains.com/" target="_blank" rel="external">http://www.jetbrains.com/</a></p>
+</blockquote>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79gy1fl1j5iyyewj30m808wdg0.jpg" alt=""><br><a id="more"></a><br>请有条件的小伙伴支持正版软件, 在校学生可以注册教育版.</p>
+<hr>
+<h4 id="激活方式"><a href="#激活方式" class="headerlink" title="激活方式:"></a>激活方式:</h4><p>首次安装JetBrains家族软件到最后, 会要求选择一种激活方式, 如下图所示:</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tKfTcgy1fky3kwfajcj30nw03cmx2.jpg" alt=""></p>
+<ol>
+<li>通过官方账号密码登陆;</li>
+<li>输入激活验证码;</li>
+<li><strong>注册服务器</strong>;</li>
+</ol>
+<p>在这里提供的是第三种注册方式, 其中idea为旗舰版的时候才会要求付费试用, 社区版是免费, 当然作为java web开发者毫无疑问都会选择旗舰版本….</p>
+<h4 id="isandisk-cn提供的激活服务器地址"><a href="#isandisk-cn提供的激活服务器地址" class="headerlink" title="isandisk.cn提供的激活服务器地址:"></a>isandisk.cn提供的激活服务器地址:</h4><p>URL: <a href="http://active.isandisk.cn" target="_blank" rel="external">http://active.isandisk.cn</a>, 在License server一栏输入后, 点击Activate即可.</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1fky3s1yqb0j30p609y3ys.jpg" alt=""></p>
+]]></content>
+      
+        <categories>
+            
+            <category> resources </category>
+            
+            <category> other </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> IDE </tag>
+            
+            <tag> resources </tag>
+            
+        </tags>
+        
+    </entry>
+    
+  
+  
+</search>
