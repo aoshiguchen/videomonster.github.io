@@ -92,7 +92,7 @@
 <meta property="og:description" content="简单就是终极的复杂。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://ws4.sinaimg.cn/large/006tKfTcgy1fl44mzt99bj30cd064q2y.jpg">
-<meta property="og:updated_time" content="2017-11-09T14:03:51.000Z">
+<meta property="og:updated_time" content="2017-11-10T01:11:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java8初探 - Lambda表达式（1）">
 <meta name="twitter:description" content="简单就是终极的复杂。">
@@ -509,7 +509,7 @@
 <p>&#8195;&#8195;然后使用Lambda来实现它，多个参数的情况下， 需要使用<code>()</code>将参数括起来，如下代码所示：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Add addMethod = (a, b) -&gt; a + b;</div><div class="line">Integer result = addMethod.add(<span class="number">1</span>, <span class="number">2</span>);</div><div class="line">System.out.println(result);</div><div class="line"><span class="comment">// 3</span></div></pre></td></tr></table></figure>
 <p>&#8195;&#8195;这个时候的Lambda表达式，并不是将两个数字相加，而是其实创建了一个函数，用来进行计算两个数字相加，并返回一个Integer型的值，这段代码隐含了一个return返回值的过程，如果将其还原成我们熟悉的Java方法，大概代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Add add = (a, b) -&gt; &#123;</div><div class="line">	return a + b;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Add add = (a, b) -&gt; &#123;</div><div class="line">	<span class="keyword">return</span> a + b;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 <h4 id="显式声明参数表达式"><a href="#显式声明参数表达式" class="headerlink" title="显式声明参数表达式"></a>显式声明参数表达式</h4><p>&#8195;&#8195;这里仍然使用上面的接口案例。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Add add = (Integer a, Integer b) -&gt; a + b;</div></pre></td></tr></table></figure>
 <p>&#8195;&#8195; 我们见到很多 Lambda 表达式中的参数类型都不是直接指定，而是交由编译器推断得出的，这当然是极好的，但有时我们最好可以显式声明参数类型，此时也需要使用小括号将参数括起来。</p>
