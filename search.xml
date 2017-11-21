@@ -3,6 +3,38 @@
   
     
     <entry>
+      <title><![CDATA[哟，又开始写Bug啦？]]></title>
+      <url>/2017/11/15/error-1/</url>
+      <content type="html"><![CDATA[<blockquote>
+<p>最困难之时，就是离胜利不远之日。</p>
+</blockquote>
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1flj65ws53kj30jo0bpaa6.jpg" alt=""></p>
+<a id="more"></a>
+<h3 id="Enjoy-bug"><a href="#Enjoy-bug" class="headerlink" title="Enjoy bug"></a>Enjoy bug</h3><p>&#8195;&#8195;2017年11月15日，现在是23：32，独坐coding，窗外一片灯火黯淡。</p>
+<p>&#8195;&#8195;下午又解决了一个IE浏览器缓存机制带来的问题，又觉得自己功力大涨庆幸之余，发现桌面上的bug list仍然是一长串，</p>
+<p>&#8195;&#8195;Have a nice day.</p>
+]]></content>
+      
+        <categories>
+            
+            <category> blog </category>
+            
+            <category> errors </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> blog </tag>
+            
+            <tag> errors </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Java8初探 - Lambda表达式（1）]]></title>
       <url>/2017/11/09/java8-2/</url>
       <content type="html"><![CDATA[<blockquote>
